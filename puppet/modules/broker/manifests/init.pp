@@ -8,6 +8,11 @@ class broker {
     ensure => 'installed',
   } ->
 
+  file { '/etc/sysconfig/activemq':
+    source => 'puppet:///modules/broker/activemq.sysconfig',
+    notify => Service[activemq],
+  } ->
+
   file { '/etc/activemq/activemq.xml':
     source => "puppet:///modules/broker/mcollective/ext/activemq/examples/multi-broker/${::hostname}-activemq.xml",
   } ~>
